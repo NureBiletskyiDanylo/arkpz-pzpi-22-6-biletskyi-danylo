@@ -1,0 +1,278 @@
+Харківський національний університет радіоелектроніки
+Факультет комп’ютерних наук
+Кафедра програмної інженерії
+
+
+
+
+ЗВІТ
+до практичного заняття №1 з дисципліни
+“Аналіз та рефакторинг коду”
+
+
+
+
+
+
+
+
+
+
+
+
+					Харків 2024		
+1.1 Тема роботи: 
+Правила оформлення програмного коду	
+1.2 Мета роботи:
+Ознайомитись з основними рекомендаціями щодо написання чистого, ефективного та підтримуваного коду для різних мов програмування, а також навчитися аналізувати та рефакторити код для покращення його якості.
+	1.3 Хід роботи
+1. Було обрано мову программування С# для аналізу і рефакторингу коду і покращення його якості.
+	2. Написано приклади коду для демонстрації правил написання чистого ефективного та підтримуваного коду.
+	3. Створено презентацію в якій розглянуті рекомендації для написання чистого та якісного коду на С#.
+
+	Основні рекомендації написання коду на С#:
+1) Рекомендація: Використовуйте вірну структуру та вірне форматування коду
+Опис: Важливо дотримуватися стандартизованої структури та форматування коду, аби полегшити собі та іншим читання та роботу з кодом.
+Приклад:
+1. public class FormatV1
+2. {
+3.     // Поганий приклад
+4.     public void ProcessDataWrong() {
+5.         if (IsDataValid()) {
+6.             Console.WriteLine("Data is valid");
+7.         }
+8.     }
+9.     // Гарний приклад
+10.     public void ProcessDataRight()
+11.     {
+12.         if (IsDataValid())
+13.         {
+14.             Console.WriteLine("Data is valid");
+15.         }
+16.     }
+17. 
+18.     // Поганий приклад
+19.     public void WriteLongWrong()
+20.     {
+21.         Console.WriteLine("This text is really really long. So what should we do? We should split it in two!");
+22.     }
+23. 
+24.     // Гарний приклад
+25.     public void WriteLongRight()
+26.     {
+27.         Console.WriteLine("This text is really really long. So what should we do?" +
+28.             " We should split it in two!");
+29.     }
+30. 
+31.     public bool IsDataValid()
+32.     {
+33.         return true;
+34.     }
+35. 
+36. }
+
+2) Рекомендація: Дотримуйтесь правил з найменування змінних, методів та класів.
+Опис: С# використовує стиль PascalCase для класів, а також полів, методів, констант та властивостей з модифікатором доступу public. Параметри методів, властивості та методи з модифікатором доступу private мають використовувати camelCase. Для полів з модифікатором доступу private має використовуватись _camelCase
+Приклад:
+1. // Поганий приклад
+2. public class user
+3. {
+4.     private string CardNumber = string.Empty;
+5.     private const int yearOfBirth = 2004;
+6.     public int userAge;
+7.     public int getAge()
+8.     {
+9.         return userAge;
+10.     }
+11. }
+12. 
+13. // Гарний приклад
+14. public class User
+15. {
+16.     private string _cardNumber = string.Empty;
+17.     private const int YearOfBirth = 2004;
+18.     public int UserAge;
+19.     public int GetAge()
+20.     {
+21.         return UserAge;
+22.     }
+23. }
+3) Рекомендація: Обирайте лаконічні та зрозумілі назви.
+Опис: Назви змінних та методів мають бути зрозумілими, аби людина одразу зрозуміла їхню роль в коді. В назвах змінних мають використовуватися іменники чи інколи прикметники. Назви методів мають складатися з дієслів чи дієслівних форм. Також варто уникати абревіатур та скорочень.
+Приклад:
+1.     // Поганий приклад
+2.     int num = 4;
+3. 
+4.     public void ShortB(int n)
+5.     {
+6.         if(n < 5) Console.WriteLine("There is a shortage of bread");
+7.     }
+8. 
+9. 
+10.     // Гарний приклад
+11.     int breadAmount = 4;
+12.     public void IsShortageOfBread(int numberOfBread)
+13.     {
+14.         if (numberOfBread < 5) Console.WriteLine("There is a shortage of bread");
+15.     }
+4) Рекомендація: Дотримуйтеся принципів рефакторингу. DRY – Don’t Repeat Yourself
+Опис: Існують багато принципів рефакторингу. DRY (Don’t Repeat Yourself) один з них. Дотримання цього принципу означає уникання повторень коду, адже це ускладнює обслуговування та підтримку ПЗ. 
+Приклад:
+1.     // Поганий приклад
+2.     public double CalculateAreaOfRectangle(double width, double height)
+3.     {
+4.         return width * height;
+5.     }
+6. 
+7.     public double CalculateAreaOfSquare(double side)
+8.     {
+9.         return side * side;
+10.     }
+11. 
+12.     // Хороший приклад
+13.     public double CalculateArea(double dimension1, double dimension2 = 0)
+14.     {
+15.         return dimension2 == 0 ? dimension1 * dimension1 : dimension1 * dimension2;
+16.     }
+5) Рекомендація: Обробляйте помилки для збільшення стійкості вашого коду.
+Опис: Правильна обробка помилок дозволяє вам та вашим колегам розробляти код, стійкий до зламів і полегшує його подальше тестування та відладку. У С# необхідно використовувати спеціальні типи помилок для різних ситуацій, описувати в них яка помилка трапилася та активно використовувати блоки try/catch/finally.
+Приклад:
+1. public void Divide(string number)
+2. {
+3.     int parsedNumber;
+4.     try
+5.     {
+6.         parsedNumber = Int32.Parse(number);
+7.         int result = 20_000 / parsedNumber;
+8.         Console.WriteLine(result);
+9.     }
+10.     catch(ArgumentException)
+11.     {
+12.         Console.WriteLine("Number string was null, it couldn't be parsed");
+13.     }
+14.     catch(FormatException)
+15.     {
+16.         Console.WriteLine($"Can't parse a string into an int32 type. It has wrong format {nameof(number)} : {number}");
+17.     }
+18.     catch(OverflowException)
+19.     {
+20.         Console.WriteLine($"String contains a number that is bigger than int32 type limit. It caused overflow - {nameof(number)} : {number}");
+21.     }
+22.     catch(DivideByZeroException)
+23.     {
+24.         Console.WriteLine($"It is impossible to casually divide 20,000 by {number}");
+25.     }
+26.     catch(Exception exc)
+27.     {
+28.         Console.WriteLine("Some unknown exception happened, here is it's message:\n" + exc.Message);
+29.     }
+6) Рекомендація: Дотримання ООП
+Опис: С# - об’єктно-орієнтована мова програмування що дозволяє програмістам будувати повноцінну архітектуру використовуючи принципи ООП. Це значно полегшує складність підтримки коду та здатність до тестування коду.
+Приклад:
+1. // Поганий приклад: хто завгодно і як завгодно може змінювати кількість грошей
+2. public class BankAccountA
+3. {
+4.     public decimal Money;
+5. }
+6. 
+7. // Гарний приклад: за допомогою інкапсуляції ми приховали доступ до грошей
+8. public class BankAccountB
+9. {
+10.     private decimal _money;
+11.     public decimal GetBalance()
+12.     {
+13.         return _money;
+14.     }
+15. 
+16.     public void Deposit(decimal amount)
+17.     {
+18.         if (amount > 0)
+19.         {
+20.             _money += amount;
+21.             Console.WriteLine("Deposit was successful");
+22.         }
+23.         else Console.WriteLine("Amount of money you want to" +
+24.             " deposit should be larger than 0");
+25.     }
+26. }
+7) Рекомендація: Тестування та документування коду.
+Опис: Тестування і документування надзвичайно важливі та необхідні частини у програмуванні на С#. Тестування дозволяє програмістам перевіряти та запевнятися в тому, що код, який вони написали, працює так, як вони того очікують. Документування коду дозволяє програмістам розібратися у структурі того чи іншого рішення проблеми швидше, у випадку, коли реалізація потребує пояснення.
+Приклад:
+1. using NPOI.SS.Formula.Functions;
+2. using System.Text.Json;
+3. 
+4. 
+5. public class User
+6. {
+7.     public string Name { get; set; } = string.Empty;
+8.     public decimal Money;
+9.     
+10. }
+11. public class UserTest
+12. {
+13.     /// <summary>Serializes a User instance into a JSON-string</summary>
+14.     /// <returns>JSON-string of <see cref="User"/>.</returns>
+15.     public string SerializeUser(User user)
+16.     {
+17.         var json = JsonSerializer.Serialize(user);
+18.         return json;
+19.     }
+20.     
+21.     [Fact]
+22.     public void SerizalizeUser_UserDataExists_True()
+23.     {
+24.             // Arrange
+25.             User user = new User() { Name = "john", Money = 999m };
+26. 
+27.             // Act
+28.             string json = SerializeUser(user);
+29. 
+30.             // Assert
+31.             Assert.NotNull(json);
+32.     }
+33. } 1.4 Висновок
+Під час виконання практичної роботи я дізнався про характерні особливості С#. Також дослідив та опанував основні рекомендації щодо написання чистого, ефективного та підтримуваного коду для обраної мови програмування.
+
+
+
+ДОДАТОК А
+	Слайди презентації:
+ 
+Рисунок А.1 – Титульний слайд презентації
+ 
+Рисунок А.2 – Зміст презентації
+ 
+Рисунок А.3 – Огляд мови програмування C#
+ 
+Рисунок А.4 – Рекомендація щодо структури та форматування коду
+ 
+Рисунок А.5 – Рекомендація щодо правил зі стилів найменування у C#
+ 
+Рисунок А.6 – Рекомендація щодо того, як необхідно називати змінні та методи 
+ 
+Рисунок А.7 – Рекомендація щодо принципів рефакторингу, а саме DRY (Don’t Repeat Yourself)
+ 
+Рисунок А.8 – Рекомендація щодо обробки помилок
+ 
+Рисунок А.9 – Приклад правильної обробки помилок
+ 
+Рисунок А.10 – Рекомендація щодо дотримання ООП
+ 
+Рисунок А.11 – Приклад правильного та неправильного підходу з використання ООП  
+ 
+Рисунок А.12 – Рекомендація щодо тестування та документування коду
+
+
+
+
+ 
+Рисунок А.13 – Приклад документування та тестування коду
+ 
+Рисунок А.14 – Висновок з презентації
+ 
+Рисунок А.15 – Список використаних джерел. Останній слайд презентації
+
+
+
+
+
