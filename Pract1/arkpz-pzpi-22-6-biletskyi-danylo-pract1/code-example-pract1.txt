@@ -1,0 +1,185 @@
+public class FormatV1
+{
+    // Поганий приклад
+    public void ProcessDataWrong() {
+        if (IsDataValid()) {
+            Console.WriteLine("Data is valid");
+        }
+    }
+    // Гарний приклад
+    public void ProcessDataRight()
+    {
+        if (IsDataValid())
+        {
+            Console.WriteLine("Data is valid");
+        }
+    }
+
+    // Поганий приклад
+    public void WriteLongWrong()
+    {
+        Console.WriteLine("This text is really really long. So what should we do? We should split it in two!");
+    }
+
+    // Гарний приклад
+    public void WriteLongRight()
+    {
+        Console.WriteLine("This text is really really long. So what should we do?" +
+            " We should split it in two!");
+    }
+
+    public bool IsDataValid()
+    {
+        return true;
+    }
+
+}
+
+// Поганий приклад
+public class user
+{
+    private string CardNumber = string.Empty;
+    private const int yearOfBirth = 2004;
+    public int userAge;
+    public int getAge()
+    {
+        return userAge;
+    }
+}
+
+// Гарний приклад
+public class User
+{
+    private string _cardNumber = string.Empty;
+    private const int YearOfBirth = 2004;
+    public int UserAge;
+    public int GetAge()
+    {
+        return UserAge;
+    }
+}
+
+    // Поганий приклад
+    int num = 4;
+
+    public void ShortB(int n)
+    {
+        if(n < 5) Console.WriteLine("There is a shortage of bread");
+    }
+
+
+    // Гарний приклад
+    int breadAmount = 4;
+    public void IsShortageOfBread(int numberOfBread)
+    {
+        if (numberOfBread < 5) Console.WriteLine("There is a shortage of bread");
+    }
+
+    // Поганий приклад
+    public double CalculateAreaOfRectangle(double width, double height)
+    {
+        return width * height;
+    }
+
+    public double CalculateAreaOfSquare(double side)
+    {
+        return side * side;
+    }
+
+    // Хороший приклад
+    public double CalculateArea(double dimension1, double dimension2 = 0)
+    {
+        return dimension2 == 0 ? dimension1 * dimension1 : dimension1 * dimension2;
+    }
+
+public void Divide(string number)
+{
+    int parsedNumber;
+    try
+    {
+        parsedNumber = Int32.Parse(number);
+        int result = 20_000 / parsedNumber;
+        Console.WriteLine(result);
+    }
+    catch(ArgumentException)
+    {
+        Console.WriteLine("Number string was null, it couldn't be parsed");
+    }
+    catch(FormatException)
+    {
+        Console.WriteLine($"Can't parse a string into an int32 type. It has wrong format {nameof(number)} : {number}");
+    }
+    catch(OverflowException)
+    {
+        Console.WriteLine($"String contains a number that is bigger than int32 type limit. It caused overflow - {nameof(number)} : {number}");
+    }
+    catch(DivideByZeroException)
+    {
+        Console.WriteLine($"It is impossible to casually divide 20,000 by {number}");
+    }
+    catch(Exception exc)
+    {
+        Console.WriteLine("Some unknown exception happened, here is it's message:\n" + exc.Message);
+    }
+
+
+// Поганий приклад: хто завгодно і як завгодно може змінювати кількість грошей
+public class BankAccountA
+{
+    public decimal Money;
+}
+
+// Гарний приклад: за допомогою інкапсуляції ми приховали доступ до грошей
+public class BankAccountB
+{
+    private decimal _money;
+    public decimal GetBalance()
+    {
+        return _money;
+    }
+
+    public void Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            _money += amount;
+            Console.WriteLine("Deposit was successful");
+        }
+        else Console.WriteLine("Amount of money you want to" +
+            " deposit should be larger than 0");
+    }
+}
+
+using NPOI.SS.Formula.Functions;
+using System.Text.Json;
+
+
+public class User
+{
+    public string Name { get; set; } = string.Empty;
+    public decimal Money;
+    
+}
+public class UserTest
+{
+    /// <summary>Serializes a User instance into a JSON-string</summary>
+    /// <returns>JSON-string of <see cref="User"/>.</returns>
+    public string SerializeUser(User user)
+    {
+        var json = JsonSerializer.Serialize(user);
+        return json;
+    }
+    
+    [Fact]
+    public void SerizalizeUser_UserDataExists_True()
+    {
+            // Arrange
+            User user = new User() { Name = "john", Money = 999m };
+
+            // Act
+            string json = SerializeUser(user);
+
+            // Assert
+            Assert.NotNull(json);
+    }
+}
