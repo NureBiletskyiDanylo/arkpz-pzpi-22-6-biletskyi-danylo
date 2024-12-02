@@ -187,3 +187,6 @@ IoT-клієнт буде забезпечувати інтеграцію з с�
 Список використаних джерел:
 1.	Weigand. Wiegand System GmbH https://www.wiegandsystem.de/en/ (дата звернення 30.11.2024).
 2.	SOMR. Groupe SOMR https://groupesomr.com/en/sectors-of-activity/system-of-rangement-for-health/ (дата звернення 30.11.2024)
+
+Посилання на ютуб:
+https://youtu.be/6IlXLmwZK_Q?feature=shared
