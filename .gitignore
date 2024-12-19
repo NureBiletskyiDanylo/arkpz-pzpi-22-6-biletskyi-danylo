@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Task2/arkpz-pzpi-22-6-Biletskyi-Danylo-task2/MediStoS/.vs
+/Task2/arkpz-pzpi-22-6-Biletskyi-Danylo-task2/MediStoS/bin/Debug/net9.0
+/Task2/arkpz-pzpi-22-6-Biletskyi-Danylo-task2/MediStoS/obj/Debug/net9.0
+/Task2/arkpz-pzpi-22-6-Biletskyi-Danylo-task2/MediStoS/obj/Release/net9.0
+/Task2/arkpz-pzpi-22-6-Biletskyi-Danylo-task2/MediStoS/obj
