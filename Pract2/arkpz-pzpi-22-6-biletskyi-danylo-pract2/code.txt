@@ -1,0 +1,151 @@
+ public class Customer
+ {
+     public int AmountOfOrders { get; set; }
+     public bool IsPremium { get; set; }
+ }
+
+ public decimal CalculateTotal(Customer customer, decimal price)
+ {
+     decimal discount = 0;
+     if (customer.AmountOfOrders > 1000 && customer.IsPremium)
+     {
+         discount = 0.2m;
+     }
+     else if (customer.AmountOfOrders > 500 && customer.IsPremium)
+     {
+         discount = 0.1m;
+     }
+     else if (customer.AmountOfOrders > 100)
+     {
+         discount = 0.5m;
+     }
+
+     return price - (price * discount);
+ }
+
+    public bool IsEligibleForHighDiscount (Customer customer)
+    {
+        return customer.AmountOfOrders > 1000 && customer.IsPremium;
+    }
+
+    public bool IsEligibleForMediumDiscount(Customer customer)
+    {
+        return customer.AmountOfOrders > 500 && customer.IsPremium;
+    }
+
+    public bool IsEligibleForLowDiscount(Customer customer)
+    {
+        return customer.AmountOfOrders > 100;
+    }
+
+    public decimal CalculateTotal(Customer customer, decimal price)
+    {
+        decimal discount = 0;
+        if (IsEligibleForHighDiscount(customer))
+        {
+            discount = 0.2m;
+        }
+        else if (IsEligibleForMediumDiscount(customer))
+        {
+            discount = 0.1m;
+        }
+        else if (IsEligibleForLowDiscount(customer))
+        {
+            discount = 0.05m;
+        }
+
+        return price - (price * discount);
+    }
+
+    public class Customer
+    {
+        public int Age { get; set; }
+        public bool IsStudent { get; set; }
+        public bool HasLoyaltyCard { get; set; }
+    }
+
+    public bool IsEligibleForDiscount(Customer customer)
+    {
+        if (customer.Age > 60) return true;
+
+        if (customer.IsStudent) return true;
+
+        if (customer.HasLoyaltyCard) return true;
+
+        return false;
+    }
+
+     public class Customer
+     {
+         public int Age { get; set; }
+         public bool IsStudent { get; set; }
+         public bool HasLoyaltyCard { get; set; }
+     }
+    
+     public bool IsEligibleForDiscount(Customer customer)
+     {
+         return customer.Age > 60 || customer.IsStudent || customer.HasLoyaltyCard;
+     }
+
+    public class Employee
+    {
+        public string Position { get; set; }
+        public decimal BaseSalary { get; set; }
+
+        public decimal CalculateSalary()
+        {
+            if (Position == "Manager")
+            {
+                return BaseSalary + 5000;
+            }
+            else if (Position == "Developer")
+            {
+                return BaseSalary + 2000;
+            }
+            else if (Position == "Intern")
+            {
+                return BaseSalary;
+            }
+            else
+            {
+                throw new InvalidOperationException("Unknown employee position");
+            }
+        }
+    }
+
+    public abstract class Employee
+    {
+        public decimal BaseSalary { get; set; }
+        public abstract decimal CalculateSalary();
+    }
+
+    public class Manager : Employee
+    {
+        public override decimal CalculateSalary()
+        {
+            return BaseSalary + 5000;
+        }
+    }
+
+    public class Developer : Employee
+    {
+        public override decimal CalculateSalary()
+        {
+            return BaseSalary + 2000;
+        }
+    }
+
+    public class Intern : Employee
+    {
+        public override decimal CalculateSalary()
+        {
+            return BaseSalary;
+        }
+    }
+
+    Employee manager = new Manager { BaseSalary = 30000 };
+    Employee developer = new Developer { BaseSalary = 20000 };
+    Employee intern = new Intern { BaseSalary = 10000 };
+    Console.WriteLine(manager.CalculateSalary()); // 35000
+    Console.WriteLine(developer.CalculateSalary()); // 22000
+    Console.WriteLine(intern.CalculateSalary()); // 10000
