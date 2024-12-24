@@ -17,7 +17,7 @@ public class Batch
     [JsonPropertyName("expiration_date")]
     public DateTime ExpirationDate { get; set; }
     [JsonPropertyName("warehouse_id")]
-    public int WareHouseId { get; set; }
+    public int WarehouseId { get; set; }
     [JsonIgnore]
     public Warehouse Warehouse { get; set; }
     [JsonPropertyName("user_id")]
@@ -39,7 +39,7 @@ public class Batch
         Quantity = model.Quantity;
         ManufactureDate = model.ManufactureDate;
         ExpirationDate = model.ExpirationDate;
-        WareHouseId = model.WareHouseId;
+        WarehouseId = model.WarehouseId;
         UserId = model.UserId;
         MedicineId = model.MedicineId;
     }

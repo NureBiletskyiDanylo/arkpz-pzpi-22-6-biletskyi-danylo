@@ -20,7 +20,6 @@ public class MedicineRepository(ApplicationDbContext context) : IMedicineReposit
         return medicine;
     }
 
-
     public async Task<List<Medicine>> GetMedicines()
     {
         return await context.Medicines.ToListAsync();

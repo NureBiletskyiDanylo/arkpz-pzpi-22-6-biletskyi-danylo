@@ -13,7 +13,7 @@ public class BatchCreateModel
     [JsonPropertyName("expiration_date")]
     public DateTime ExpirationDate { get; set; }
     [JsonPropertyName("warehouse_id")]
-    public int WareHouseId { get; set; }
+    public int WarehouseId { get; set; }
     [JsonPropertyName("user_id")]
     public int UserId { get; set; }
     [JsonPropertyName("medicine_id")]

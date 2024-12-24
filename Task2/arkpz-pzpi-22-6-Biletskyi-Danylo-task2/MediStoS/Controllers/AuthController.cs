@@ -1,10 +1,10 @@
-﻿using MediStoS.Database.Models;
+﻿namespace MediStoS.Controllers;
+
+using MediStoS.Database.Models;
 using MediStoS.Database.Repository.UserRepository;
 using MediStoS.DataTransferObjects;
 using MediStoS.Services;
 using Microsoft.AspNetCore.Mvc;
-
-namespace MediStoS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -12,6 +12,11 @@ public class AuthController(IUserRepository userRepository, IConfiguration confi
 {
     private TokenService tokenService = new TokenService(configuration);
 
+    /// <summary>
+    /// Handles a login request 
+    /// </summary>
+    /// <param name="model">Login model<see cref="LoginModel"/></param>
+    /// <returns>Ok with a JWT token or an error:<see cref="Task{IActionResult}"/></returns>
     [HttpPost]
     [Route("Login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -35,6 +40,11 @@ public class AuthController(IUserRepository userRepository, IConfiguration confi
         return ValidationProblem("User credentials are incorrect");
     }
 
+    /// <summary>
+    /// Handles a request of registration
+    /// </summary>
+    /// <param name="model">Register model<see cref="UserCreateModel"/></param>
+    /// <returns>Ok with a JWT token, or an error:<see cref="Task{IActionResult}"/></returns>
     [HttpPost]
     [Route("Register")]
     public async Task<IActionResult> Register([FromBody] UserCreateModel model)
