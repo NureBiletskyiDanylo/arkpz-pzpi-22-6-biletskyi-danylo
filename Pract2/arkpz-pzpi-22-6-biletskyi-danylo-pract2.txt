@@ -1,0 +1,281 @@
+Харківський національний університет радіоелектроніки
+Факультет комп’ютерних наук
+Кафедра програмної інженерії
+
+
+
+
+ЗВІТ
+до практичного заняття №2 з дисципліни
+“Аналіз та рефакторинг коду”
+
+
+
+
+
+
+
+
+
+
+
+					Харків 2024
+1. Тема роботи:
+Методи рефакторингу коду програмного забезпечення
+2. Мета роботи:
+Вивчити основні методи рефакторингу коду на основі реальних прикладів з власних програмних проєктів. Навчитися ідентифікувати проблеми в коді та використовувати відповідні методи рефакторингу для покращення його якості.
+	3. Хід виконання роботи
+3.1. Було обрано три методи рефакторингу коду із книги Мартіна Фаулера «Refactoring. Improving the Design of Existing Code», а саме: Decompose Conditional, Consolidate Conditional Expression, Replace Conditional with Polymorphism.
+	3.2. Були наведені приклади свого особистого коду (з курсових, лабораторних або інших проєктів), який потребував покращення, та продемонстровано застосування обраних методів.
+	3.3. Була створена презентація, що містить аналіз обраних методів рефакторингу та їх практичне використання.
+	Матеріали з презентації наведені нижче:
+	Вступ:
+Методи рефакторингу – це інструменти й підходи, що використовуються для вдосконалення структури та читабельності програмного коду без зміни його зовнішньої поведінки. Основна мета рефакторингу полягає в підвищенні якості коду, що у свою чергу, сприяє спрощенню подальшої підтримки, розширення і тестування програмного забезпечення
+У цій презентації будуть детально розглянуті три наступні методи рефакторингу:
+●	Decompose Conditional
+●	Consolidate Conditional Expression
+●	Replace Conditional with Polymorphism
+
+
+Метод Decompose Conditional:
+Decompose Conditional передбачає спрощення комплексних умовних конструкцій їх розбиттям на менші, зрозуміліші, легші для підтримки частини. 
+Цей метод рефакторингу варто застосовувати, коли ваш код містить велику кількість умовних конструкцій if-else або switch.
+Переваги використання:
+●	Спрощення читабельності коду.
+●	Спрощення змін в коді та його виправлень.
+●	Тестування умовних конструкцій стає більш легким.
+●	З’являється можливість використання цього коду в інших місцях, без необхідності його копіювання.
+
+Програмний код до рефакторингу:
+1.     public class Customer
+2.     {
+3.         public int AmountOfOrders { get; set; }
+4.         public bool IsPremium { get; set; }
+5.     }
+6. 
+7.     public decimal CalculateTotal(Customer customer, decimal price)
+8.     {
+9.         decimal discount = 0;
+10.         if (customer.AmountOfOrders > 1000 && customer.IsPremium)
+11.         {
+12.             discount = 0.2m;
+13.         }
+14.         else if (customer.AmountOfOrders > 500 && customer.IsPremium)
+15.         {
+16.             discount = 0.1m;
+17.         }
+18.         else if (customer.AmountOfOrders > 100)
+19.         {
+20.             discount = 0.05m;
+21.         }
+22. 
+23.         return price - (price * discount);
+24.     }
+
+Програмний код після рефакторингу:
+1.     public class Customer
+2.     {
+3.         public int AmountOfOrders { get; set; }
+4.         public bool IsPremium { get; set; }
+5.     }
+6. 
+7.     public decimal CalculateTotal(Customer customer, decimal price)
+8.     {
+9.         decimal discount = 0;
+10.         if (IsEligibleForHighDiscount(customer))
+11.         {
+12.             discount = 0.2m;
+13.         }
+14.         else if (IsEligibleForMediumDiscount(customer))
+15.         {
+16.             discount = 0.1m;
+17.         }
+18.         else if (IsEligibleForLowDiscount(customer))
+19.         {
+20.             discount = 0.05m;
+21.         }
+22. 
+23.         return price - (price * discount);
+24.     }
+25.     public bool IsEligibleForHighDiscount(Customer customer)
+26.     {
+27.         return customer.AmountOfOrders > 1000 && customer.IsPremium;
+28.     }
+29. 
+30.     public bool IsEligibleForMediumDiscount(Customer customer)
+31.     {
+32.         return customer.AmountOfOrders > 500 && customer.IsPremium;
+33.     }
+34. 
+35.     public bool IsEligibleForLowDiscount(Customer customer)
+36.     {
+37.         return customer.AmountOfOrders > 100;
+38.     }
+
+
+Метод Consolidate Conditional Expression:
+Consolidate Conditional Expression передбачає об’єднання умовних виразів, котрі перевіряють одне й те саме або повертають однаковий результат. Його мета – зробити код простішим та зрозумілішим.
+Переваги використання:
+●	Виключається поява повторювань коду умовних виразів.
+●	Дозволяє виокремити комплексний умовний вираз у метод після об’єднання.
+●	Спрощення читабельності та зрозумілості коду.
+
+Програмний код до рефакторингу:
+1.     public class Customer
+2.     {
+3.         public int Age { get; set; }
+4.         public bool IsStudent { get; set; }
+5.         public bool HasLoyaltyCard { get; set; }
+6.     }
+7. 
+8.     public bool IsEligibleForDiscount(Customer customer)
+9.     {
+10.         if (customer.Age > 60) return true;
+11. 
+12.         if (customer.IsStudent) return true;
+13. 
+14.         if (customer.HasLoyaltyCard) return true;
+15. 
+16.         return false;
+17.     }
+
+Програмний код після рефакторингу:
+1.     public class Customer
+2.     {
+3.         public int Age { get; set; }
+4.         public bool IsStudent { get; set; }
+5.         public bool HasLoyaltyCard { get; set; }
+6.     }
+7. 
+8.     public bool IsEligibleForDiscount(Customer customer)
+9.     {
+10.         return customer.Age > 60 || customer.IsStudent || customer.HasLoyaltyCard;
+11.     }
+
+Метод Replace Conditional with Polymorphism:
+Replace Conditional with Polymorphism передбачає заміну умовних конструкцій (наприклад, if-else або switch) на поліморфізм.
+Його варто використовувати, коли в програмному коді, логіка для кожного варіанту умов відрізняється. Також використання цього методу слідує одному з принципів SOLID, а саме принципу відкритості та закритості.
+Переваги використання:
+●	Простота додавання нових умов.
+●	Зменшення розміру логіки умовних виразів.
+●	Покращення зрозумілості коду
+Програмний код до рефакторингу:
+1.     public class Employee
+2.     {
+3.         public string Position { get; set; }
+4.         public decimal BaseSalary { get; set; }
+5. 
+6.         public decimal CalculateSalary()
+7.         {
+8.             if (Position == "Manager")
+9.             {
+10.                 return BaseSalary + 5000;
+11.             }
+12.             else if (Position == "Developer")
+13.             {
+14.                 return BaseSalary + 2000;
+15.             }
+16.             else if (Position == "Intern")
+17.             {
+18.                 return BaseSalary;
+19.             }
+20.             else
+21.             {
+22.                 throw new InvalidOperationException("Unknown employee position");
+23.             }
+24.         }
+25.     }
+
+
+Програмний код після рефакторингу:
+1.     public abstract class Employee
+2.     {
+3.         public decimal BaseSalary { get; set; }
+4.         public abstract decimal CalculateSalary();
+5.     }
+6. 
+7.     public class Manager : Employee
+8.     {
+9.         public override decimal CalculateSalary()
+10.         {
+11.             return BaseSalary + 5000;
+12.         }
+13.     }
+14. 
+15.     public class Developer : Employee
+16.     {
+17.         public override decimal CalculateSalary()
+18.         {
+19.             return BaseSalary + 2000;
+20.         }
+21.     }
+22. 
+23.     public class Intern : Employee
+24.     {
+25.         public override decimal CalculateSalary()
+26.         {
+27.             return BaseSalary;
+28.         }
+29.     }
+30.             Employee manager = new Manager { BaseSalary = 30000 };
+31.             Employee developer = new Developer { BaseSalary = 20000 };
+32.             Employee intern = new Intern { BaseSalary = 10000 };
+33.             Console.WriteLine(manager.CalculateSalary()); // 35000
+34.             Console.WriteLine(developer.CalculateSalary()); // 22000
+35.             Console.WriteLine(intern.CalculateSalary()); // 10000
+
+Інструменти для автоматичного рефакторингу:
+Інтегроване середовище розробки Visual Studio надає програмістам багато різних інструментів для рефакторингу, які дозволять їм покращити читабельність та структуру коду.
+Visual Studio дозволяє:
+●	Перейменовувати змінні/методи/класи, що автоматично змінить їх назву у всіх місцях де вони зустрічаються
+●	Виокремлювати певні блоки коду у окремі класи чи методи
+●	Створювати інтерфейси на основі класів автоматично
+Також, за допомогою розширень до Visual Studio, ви зможете використовувати інші інструменти, наприклад Code Formatter, який змінюватиме код відповідно до вимог інструменту статичного аналізу коду StyleCop
+
+Висновок:
+З розвитком сфери ІТ, програмісти зіткнулися з тим, що кількість та важкість програмного коду невпинно зростає. Саме тому використання методів рефакторингу настільки важливе, адже вони полегшують подальшу підтримку коду та зменшують його складність для розуміння.
+Методи рефакторингу, які були розглянуті сьогодні, загалом базувалися на рефакторингу умовних виразів, однак це не робить їх менш важливими порівняно з іншими, адже умовні вирази були, є і будуть однією з найважливіших частин програмного продукту. Вони покращують читабельність, спрощують структуру та дозволяють уникати дублювання коду.
+Використані джерела:
+●	Decompose Conditional. Refactoring Guru. URL: https://refactoring.guru/decompose-conditional
+●	Decompose Conditional. Decompose Conditional Refactoring: Guide & Examples. URL: https://daily.dev/blog/decompose-conditional-refactoring-guide-and-examples
+●	Consolidate Conditional Expression. Refactoring Guru. URL: https://refactoring.guru/consolidate-conditional-expression
+●	Replace Conditional with Polymorphism. Refactoring Guru. URL: https://refactoring.guru/replace-conditional-with-polymorphism
+●	Replace Conditional with Polymorphism. URL: https://dev.to/mundim/refactoring-replacing-conditional-with-polymorphism-2ob6
+
+4. Висновок: 
+Під час виконання практичної роботи були вивчені основні методи рефакторингу коду, на основі реальних прикладів з власних програмних проєктів.
+
+5. Посилання на гітхаб та ютуб:
+https://github.com/NureBiletskyiDanylo/arkpz-pzpi-22-6-biletskyi-danylo/tree/main/Pract2
+https://youtu.be/4tS_xKm9Y8g?feature=shared
+ 
+ДОДАТОК А
+Слайди презентації:
+ 
+Рисунок А.1 – Початковий слайд
+
+Рисунок А.2 – Вступ
+
+Рисунок А.3 – Метод Decompose Conditional
+
+Рисунок А.4 – Програмний код до рефакторингу
+
+Рисунок А.5 – Програмний код після рефакторингу
+
+Рисунок А.6 – Метод Consolidate Conditional Expression
+
+Рисунок А.7 – Програмний код до рефакторингу
+
+Рисунок А.8 – Програмний код після рефакторингу
+
+Рисунок А.9 – Метод Replace Conditional with Polymorphism
+
+Рисунок А.10 – Програмний код до рефакторингу
+
+Рисунок А.11 – Програмний код після рефакторингу
+
+Рисунок А.12 – Інструменти для автоматичного рефакторингу
+
+Рисунок А.13 – Висновок
+
+Рисунок А.14 – Використані джерела
