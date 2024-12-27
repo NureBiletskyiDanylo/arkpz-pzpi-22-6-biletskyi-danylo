@@ -1,0 +1,5 @@
+{
+  "FetchSensorsUrl" : "https://localhost:63974/api/Sensor/1/GetSensorsForIoT",
+  "SendSensorDataUrl": "https://localhost:63974/api/Sensor/UpdateMeasuredData",
+  "UpdateInterval" :  1000
+}
