@@ -14,3 +14,10 @@
 /Task3/arkpz-pzpi-22-6-biletskyi-danylo-task3/MediStoS/bin/Debug/net9.0
 /Task3/arkpz-pzpi-22-6-biletskyi-danylo-task3/MediStoS/obj
 *.json
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/IoT/IotSensors/.vs
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/IoT/IotSensors/out/build/x86-debug
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/MediStoS/.vs
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/MediStoS/bin/Debug/net9.0
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/MediStoS/obj
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/IoT/IotSensors/out/build/x64-debug
+/Task4/arkpz-pzpi-22-6-biletskyi-danylo-task4/IoT/.vs
