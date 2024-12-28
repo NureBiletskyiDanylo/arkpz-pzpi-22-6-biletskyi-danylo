@@ -46,7 +46,8 @@ https://youtu.be/_QR0ffTPUOc
 https://github.com/NureBiletskyiDanylo/arkpz-pzpi-22-6-biletskyi-danylo/tree/main/Task4
 
 Висновок:
-В ході виконання даної лабораторної роботи було розроблено бізнес-логіку та функції адміністрування серверної частини програмної системи. Були вчинені заходи для забезпечення автентифікації та авторизації користувачів за допомогою JSON Web Token.
+В ході виконання даної лабораторної роботи було розроблено програмне забезпечення для IoT або SmartDevice пристрою.
+ 
 ДОДАТОК А
 1. void Sensor::generateRandomValue() {
 2.     std::random_device rd;
